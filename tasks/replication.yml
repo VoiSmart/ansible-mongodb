@@ -73,7 +73,7 @@
 
 # This currently does not work
 - name: replication | Initializing Replication Set
-  command: 'mongo --port {{ mongodb_port }} -u "{{ mongodb_admin_user.name }}" -p "{{ mongodb_admin_user.password }}" --authenticationDatabase "admin" /tmp/repset_init.js' # noqa 204
+  command: 'mongosh --port {{ mongodb_port }} -u "{{ mongodb_admin_user.name }}" -p "{{ mongodb_admin_user.password }}" --authenticationDatabase "admin" /tmp/repset_init.js' # noqa 204
   register: mongodb_repl_set_init
   when: >
     inventory_hostname == mongodb_replication_master and
@@ -81,7 +81,7 @@
     mongodb_create_users
 
 - name: replication | Initializing Replication Set
-  command: "mongo --port {{ mongodb_port }} /tmp/repset_init.js"
+  command: "mongosh --port {{ mongodb_port }} /tmp/repset_init.js"
   register: mongodb_repl_set_init
   become: true
   when: >
